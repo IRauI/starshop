@@ -24,7 +24,11 @@
         <tr>
             <th>Name</th>
             {# twig can use get method for objects if private #}
-            <td>{{ myShip.name }}</td>
+            <td>
+                <a href="{{ path('app_starship_show', { id: myShip.id }) }}">
+                    {{ myShip.name }}
+                </a>
+            </td>
         </tr>
         <tr>
             <th>Class</th>
