@@ -9,9 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/api/starships')]
 class StarshipApiController extends AbstractController
 {
-    #[Route('/api/starships')]
+    #[Route('', methods:['GET'])]
     //autowired LoggerInterface, works in Controller methods and __construct of any service
     //all services live in the SERVICE CONTAINER
     public function getCollection(StarshipRepository $repository): Response
@@ -22,8 +23,17 @@ class StarshipApiController extends AbstractController
         return $this->json($starships);
     }
 
-    public function get(): Response
+    //id is dynamic
+    #[Route('/{id<\d+>}', methods:['GET'])]
+    public function get(int $id, StarshipRepository $repository): Response
     {
-        
+        $starship= $repository->find($id);
+
+        if(!$starship)
+        {
+            throw $this->createNotFoundException("Starship not found");
+        }
+
+        return $this->json($starship);
     }
 }

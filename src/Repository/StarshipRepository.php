@@ -8,7 +8,7 @@ use Psr\Log\LoggerInterface;
 class StarshipRepository
 {
     //added to __construct is the correct way to autowire, 
-    //the argument autowire is a feature for Controller methods
+    //the normal method autowire is a feature for Controller methods
     public function __construct(private LoggerInterface $logger){
     }
 
@@ -38,5 +38,16 @@ class StarshipRepository
                 'under construction',
             ),
         ];
+    }
+
+    //returns Starship or null
+    public function find(int $id): ?Starship
+    {
+        foreach ($this->findAll() as $starship) {
+            if ($starship->getId() === $id) {
+                return $starship;
+            }
+        }
+        return null;
     }
 }
