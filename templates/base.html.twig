@@ -8,6 +8,7 @@
         {% endblock %}
 
         {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
 
         {% set frankenphpHotReload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
@@ -18,6 +19,8 @@
         {% endif %}
     </head>
     <body>
+        {# asset versioning - generates version hash to download new file even if it has the same name #}
+        <img src=" {{ asset('images/starshop-logo.png') }} " alt="Starshop Logo" >
         {% block body %}{% endblock %}
     </body>
 </html>
