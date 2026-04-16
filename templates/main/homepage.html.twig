@@ -7,9 +7,9 @@
 
 <div>
 
-    Browse through {{ numberOfStarships }} starships!
+    Browse through {{ ships|length }} starships!
 
-    {% if numberOfStarships > 400 %}
+    {% if ships|length > 2 %}
         <p>
             {# Comment #}
             That's alot of starships!
@@ -23,6 +23,7 @@
     <table>
         <tr>
             <th>Name</th>
+            {# twig can use get method for objects if private #}
             <td>{{ myShip.name }}</td>
         </tr>
         <tr>

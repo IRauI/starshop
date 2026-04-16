@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\Starship;
+use App\Repository\StarshipRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,34 +14,16 @@ class StarshipApiController extends AbstractController
     #[Route('/api/starships')]
     //autowired LoggerInterface, works in Controller methods and __construct of any service
     //all services live in the SERVICE CONTAINER
-    public function getCollection(LoggerInterface $logger): Response
+    public function getCollection(StarshipRepository $repository): Response
     {
-        $logger->info('Starship Controller Received');
-        $starships = [
-            new Starship(
-                1,
-                'USS LeafyCruiser (NCC-0001)',
-                'Garden',
-                'Jean-Luc Pickles',
-                'taken over by Q',
-            ),
-            new Starship(
-                2,
-                'USS Espresso (NCC-1234-C)',
-                'Latte',
-                'James T. Quick!',
-                'repaired',
-            ),
-            new Starship(
-                3,
-                'USS Wanderlust (NCC-2024-W)',
-                'Delta Tourist',
-                'Kathryn Journeyway',
-                'under construction',
-            ),
-        ];
+        $starships = $repository->findAll();
 
         //return new Response(json_encode($starships))
         return $this->json($starships);
+    }
+
+    public function get(): Response
+    {
+        
     }
 }
