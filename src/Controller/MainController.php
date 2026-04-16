@@ -11,7 +11,7 @@ class MainController extends AbstractController
     #[Route('/')]
     public function homepage(): Response
     {
-        $starshipCount = 457;
+        $starshipCount = 4570;
 
         $myShip = [
             'name' => 'USS LeafyCruiser (NCC-0001)',
